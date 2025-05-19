@@ -23,8 +23,20 @@ exports.addPayment = async (req, res) => {
     }
 };
 
+
 exports.getPayments = async (req, res) => {
-    const payments = await Payment.findAll({ where: { userId: req.params.user_id } });
-    res.json(payments);
+    try {
+        const userId = req.params.user_id;
+
+        const payments = await Payment.findAll({
+            where: { userId }
+        });
+
+        res.status(200).json(payments);
+    } catch (err) {
+        console.error('Error fetching payments:', err);
+        res.status(500).json({ error: 'Server error' });
+    }
 };
+
 

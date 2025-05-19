@@ -9,9 +9,11 @@ const Payment = sequelize.define('Payment', {
     card_no: DataTypes.STRING,
     card_expiry: DataTypes.STRING,
     card_cvc: DataTypes.STRING,
+    userId: DataTypes.INTEGER,
 });
 
-User.hasMany(Payment);
-Payment.belongsTo(User);
+
+User.hasMany(Payment, { foreignKey: 'userId' });
+Payment.belongsTo(User, { foreignKey: 'userId' });
 
 module.exports = Payment;
